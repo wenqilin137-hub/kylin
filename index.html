@@ -117,16 +117,13 @@
     .page-main {
       flex: 1;
       width: 100%;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      /* 顶部留出导航栏高度 + 间距，避免内容被遮挡 */
-      padding: 96px 1.5rem 3rem;
+      padding-top: 80px;
+      padding-bottom: 3rem;
       position: relative;
       z-index: 10;
-      gap: 3rem;
     }
 
     /* 内容区：图片、标题纵向居中排列 */
@@ -150,57 +147,140 @@
       transition: color var(--theme-transition);
     }
 
-    /* ========== 关于我毛玻璃卡片 ========== */
-    .about-card {
-      max-width: 520px;
+    /* ========== Banner 轮播图 ========== */
+    .banner-section {
       width: 100%;
-      margin: 0 auto;
-      padding: 2rem 2.5rem;
+      padding: 16px 0;
+      position: relative;
+      z-index: 10;
+    }
+
+    .banner-carousel {
+      width: 100%;
+      height: 680px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    .banner-track {
+      display: flex;
+      height: 100%;
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .banner-slide {
+      min-width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 2rem;
       background: var(--card-bg);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--card-border);
-      border-radius: 16px;
-      text-align: center;
       transition: background var(--theme-transition), border-color var(--theme-transition);
     }
 
-    .about-card h2 {
-      font-size: 1.5rem;
+    .banner-slide h2 {
+      font-size: 2.2rem;
       font-family: sans-serif;
       font-weight: 700;
       color: var(--color-text);
-      margin-bottom: 0.75rem;
+      margin-bottom: 1rem;
       transition: color var(--theme-transition);
     }
 
-    .about-card .about-desc {
-      font-size: 0.95rem;
+    .banner-slide .banner-desc {
+      font-size: 1.05rem;
       font-family: sans-serif;
       color: var(--color-text);
       opacity: 0.75;
-      line-height: 1.6;
-      margin-bottom: 1.25rem;
+      line-height: 1.7;
+      max-width: 560px;
+      margin-bottom: 1.5rem;
       transition: color var(--theme-transition);
     }
 
-    .about-card .tag-list {
+    .banner-slide .tag-list {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 0.5rem;
     }
 
-    .about-card .tag {
+    .banner-slide .tag {
       display: inline-block;
-      padding: 0.3rem 0.8rem;
-      font-size: 0.8rem;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.85rem;
       font-family: sans-serif;
       background: var(--tag-bg);
       color: var(--tag-text);
       border: 1px solid var(--tag-border);
       border-radius: 20px;
       transition: background var(--theme-transition), color var(--theme-transition), border-color var(--theme-transition);
+    }
+
+    /* 轮播指示器 */
+    .banner-indicators {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      margin-top: 1.2rem;
+    }
+
+    .banner-indicators .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--color-text);
+      opacity: 0.3;
+      cursor: pointer;
+      border: none;
+      transition: opacity var(--theme-transition), transform var(--theme-transition);
+    }
+
+    .banner-indicators .dot.active {
+      opacity: 0.9;
+      transform: scale(1.3);
+    }
+
+    /* 轮播箭头 */
+    .banner-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--card-border);
+      background: var(--card-bg);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: var(--color-text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 20;
+      opacity: 0.6;
+      transition: opacity var(--theme-transition), background var(--theme-transition), border-color var(--theme-transition);
+    }
+
+    .banner-arrow:hover {
+      opacity: 1;
+    }
+
+    .banner-arrow.prev {
+      left: 1rem;
+    }
+
+    .banner-arrow.next {
+      right: 1rem;
     }
 
     /* ========== 主题切换按钮（导航栏内） ========== */
@@ -321,27 +401,57 @@
     </div>
   </nav>
 
-  <!-- 主内容区：原有图片和文字保持不变 -->
+  <!-- 主内容区 -->
   <main class="page-main">
-    <div class="content">
-      <!-- 居中显示的图片 -->
-      <img src="image 22.png" alt="示例图片">
-
-      <!-- “Cursor！代码的第一堂课”后面换行 -->
-      <h1>你好，我是Kylin！学代码的第一步，<br>完成写一个简单网页</h1>
-    </div>
-
-    <!-- 关于我毛玻璃卡片 -->
-    <div class="about-card">
-      <h2>关于我</h2>
-      <p class="about-desc">我是Kylin，一个正在学习AI编程和UI设计的新手，喜欢用代码把想法变成现实。</p>
-      <div class="tag-list">
-        <span class="tag">UI设计</span>
-        <span class="tag">前端开发</span>
-        <span class="tag">Figma</span>
-        <span class="tag">VS Code</span>
+    <!-- Banner 轮播图 -->
+    <section class="banner-section">
+    <div class="banner-carousel" id="bannerCarousel">
+      <div class="banner-track" id="bannerTrack">
+        <!-- Slide 1: 关于我 -->
+        <div class="banner-slide">
+          <h2>关于我</h2>
+          <p class="banner-desc">我是Kylin，一个正在学习AI编程和UI设计的新手，喜欢用代码把想法变成现实。</p>
+          <div class="tag-list">
+            <span class="tag">UI设计</span>
+            <span class="tag">前端开发</span>
+            <span class="tag">Figma</span>
+            <span class="tag">VS Code</span>
+          </div>
+        </div>
+        <!-- Slide 2: 我的技能 -->
+        <div class="banner-slide">
+          <h2>我的技能</h2>
+          <p class="banner-desc">专注网页设计与前端交互，擅长用 Figma 绘制高保真原型，再用代码将其落地为真实可用的页面。</p>
+          <div class="tag-list">
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">响应式设计</span>
+            <span class="tag">动效交互</span>
+          </div>
+        </div>
+        <!-- Slide 3: 我的目标 -->
+        <div class="banner-slide">
+          <h2>我的目标</h2>
+          <p class="banner-desc">持续精进 AI 编程能力，打造兼具美感与实用性的数字产品，让每个想法都有机会被看见。</p>
+          <div class="tag-list">
+            <span class="tag">AI 编程</span>
+            <span class="tag">产品设计</span>
+            <span class="tag">持续学习</span>
+            <span class="tag">开源贡献</span>
+          </div>
+        </div>
       </div>
+      <!-- 左右箭头 -->
+      <button class="banner-arrow prev" id="bannerPrev" aria-label="上一张">&#10094;</button>
+      <button class="banner-arrow next" id="bannerNext" aria-label="下一张">&#10095;</button>
     </div>
+    <!-- 指示器 -->
+    <div class="banner-indicators" id="bannerIndicators">
+      <button class="dot active" data-index="0"></button>
+      <button class="dot" data-index="1"></button>
+      <button class="dot" data-index="2"></button>
+    </div>
+  </section>
   </main>
 
   <script>
@@ -531,6 +641,67 @@
     toggleBtn.addEventListener('click', function () {
       body.classList.toggle('light-mode');
     });
+
+    // ========== Banner 轮播系统 ==========
+    (function () {
+      const track = document.getElementById('bannerTrack');
+      const slides = document.querySelectorAll('.banner-slide');
+      const dots = document.querySelectorAll('#bannerIndicators .dot');
+      const prevBtn = document.getElementById('bannerPrev');
+      const nextBtn = document.getElementById('bannerNext');
+      const total = slides.length;
+      let current = 0;
+      let autoTimer;
+
+      function goTo(index) {
+        if (index < 0) index = total - 1;
+        if (index >= total) index = 0;
+        current = index;
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        dots.forEach(function (d, i) {
+          d.classList.toggle('active', i === current);
+        });
+      }
+
+      function next() { goTo(current + 1); }
+      function prev() { goTo(current - 1); }
+
+      function startAuto() {
+        stopAuto();
+        autoTimer = setInterval(next, 4000);
+      }
+
+      function stopAuto() {
+        if (autoTimer) clearInterval(autoTimer);
+      }
+
+      prevBtn.addEventListener('click', function () { prev(); startAuto(); });
+      nextBtn.addEventListener('click', function () { next(); startAuto(); });
+
+      dots.forEach(function (dot) {
+        dot.addEventListener('click', function () {
+          goTo(parseInt(this.getAttribute('data-index')));
+          startAuto();
+        });
+      });
+
+      // 触摸滑动支持
+      let touchStartX = 0;
+      let touchEndX = 0;
+      const carousel = document.getElementById('bannerCarousel');
+      carousel.addEventListener('touchstart', function (e) {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAuto();
+      });
+      carousel.addEventListener('touchend', function (e) {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchStartX - touchEndX > 50) next();
+        if (touchEndX - touchStartX > 50) prev();
+        startAuto();
+      });
+
+      startAuto();
+    })();
   </script>
 </body>
 </html>

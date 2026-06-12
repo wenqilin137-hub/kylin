@@ -21,9 +21,14 @@
       --color-nav-border: rgba(245, 245, 245, 0.12);
       --color-btn-bg: #f5f5f5;
       --color-btn-text: #0A0B0F;
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --tag-bg: rgba(100, 180, 255, 0.15);
+      --tag-text: rgba(100, 180, 255, 0.9);
+      --tag-border: rgba(100, 180, 255, 0.25);
     }
 
-    /* 浅色模式：页面、导航栏、按钮颜色对调 */
+    /* 浅色模式：页面、导航栏、按钮、卡片颜色对调 */
     body.light-mode {
       --color-bg: #f5f5f5;
       --color-text: #0A0B0F;
@@ -32,6 +37,11 @@
       --color-nav-border: rgba(10, 11, 15, 0.1);
       --color-btn-bg: #0A0B0F;
       --color-btn-text: #f5f5f5;
+      --card-bg: rgba(0, 0, 0, 0.05);
+      --card-border: rgba(0, 0, 0, 0.08);
+      --tag-bg: rgba(10, 11, 15, 0.08);
+      --tag-text: #0A0B0F;
+      --tag-border: rgba(10, 11, 15, 0.15);
     }
 
     /* 页面整体：纵向布局，深色背景 */
@@ -109,12 +119,14 @@
       width: 100%;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       /* 顶部留出导航栏高度 + 间距，避免内容被遮挡 */
-      padding: 96px 1.5rem 2rem;
+      padding: 96px 1.5rem 3rem;
       position: relative;
       z-index: 10;
+      gap: 3rem;
     }
 
     /* 内容区：图片、标题纵向居中排列 */
@@ -136,6 +148,59 @@
       font-family: sans-serif;
       text-align: center;
       transition: color var(--theme-transition);
+    }
+
+    /* ========== 关于我毛玻璃卡片 ========== */
+    .about-card {
+      max-width: 520px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 2.5rem;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      text-align: center;
+      transition: background var(--theme-transition), border-color var(--theme-transition);
+    }
+
+    .about-card h2 {
+      font-size: 1.5rem;
+      font-family: sans-serif;
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: 0.75rem;
+      transition: color var(--theme-transition);
+    }
+
+    .about-card .about-desc {
+      font-size: 0.95rem;
+      font-family: sans-serif;
+      color: var(--color-text);
+      opacity: 0.75;
+      line-height: 1.6;
+      margin-bottom: 1.25rem;
+      transition: color var(--theme-transition);
+    }
+
+    .about-card .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .about-card .tag {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+      font-family: sans-serif;
+      background: var(--tag-bg);
+      color: var(--tag-text);
+      border: 1px solid var(--tag-border);
+      border-radius: 20px;
+      transition: background var(--theme-transition), color var(--theme-transition), border-color var(--theme-transition);
     }
 
     /* ========== 主题切换按钮（导航栏内） ========== */
@@ -263,7 +328,19 @@
       <img src="image 22.png" alt="示例图片">
 
       <!-- “Cursor！代码的第一堂课”后面换行 -->
-      <h1>你好，我是Kylin(启林)！学习AI代码中，<br>今天完成了写一个简单页面</h1>
+      <h1>你好，我是Kylin！学代码的第一步，<br>完成写一个简单网页</h1>
+    </div>
+
+    <!-- 关于我毛玻璃卡片 -->
+    <div class="about-card">
+      <h2>关于我</h2>
+      <p class="about-desc">我是Kylin，一个正在学习AI编程和UI设计的新手，喜欢用代码把想法变成现实。</p>
+      <div class="tag-list">
+        <span class="tag">UI设计</span>
+        <span class="tag">前端开发</span>
+        <span class="tag">Figma</span>
+        <span class="tag">VS Code</span>
+      </div>
     </div>
   </main>
 

@@ -120,7 +120,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-top: 80px;
+      padding-top: 64px;
       padding-bottom: 3rem;
       position: relative;
       z-index: 10;
@@ -150,7 +150,6 @@
     /* ========== Banner 轮播图 ========== */
     .banner-section {
       width: 100%;
-      padding: 16px 0;
       position: relative;
       z-index: 10;
     }
@@ -160,7 +159,6 @@
       height: 680px;
       position: relative;
       overflow: hidden;
-      border-radius: 12px;
     }
 
     .banner-track {
@@ -173,46 +171,51 @@
       min-width: 100%;
       height: 100%;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 3rem 2rem;
+      justify-content: space-between;
       background: var(--card-bg);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
       border: 1px solid var(--card-border);
       transition: background var(--theme-transition), border-color var(--theme-transition);
     }
 
-    .banner-slide h2 {
+    /* 左侧文案区 */
+    .banner-left {
+      flex: 0 0 45%;
+      padding: 3rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .banner-left h2 {
       font-size: 2.2rem;
       font-family: sans-serif;
       font-weight: 700;
       color: var(--color-text);
       margin-bottom: 1rem;
       transition: color var(--theme-transition);
+      text-align: left;
     }
 
-    .banner-slide .banner-desc {
+    .banner-left .banner-desc {
       font-size: 1.05rem;
       font-family: sans-serif;
       color: var(--color-text);
       opacity: 0.75;
       line-height: 1.7;
-      max-width: 560px;
       margin-bottom: 1.5rem;
       transition: color var(--theme-transition);
+      text-align: left;
     }
 
-    .banner-slide .tag-list {
+    .banner-left .tag-list {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
       gap: 0.5rem;
     }
 
-    .banner-slide .tag {
+    .banner-left .tag {
       display: inline-block;
       padding: 0.35rem 0.9rem;
       font-size: 0.85rem;
@@ -222,6 +225,35 @@
       border: 1px solid var(--tag-border);
       border-radius: 20px;
       transition: background var(--theme-transition), color var(--theme-transition), border-color var(--theme-transition);
+    }
+
+    /* 右侧图片区 */
+    .banner-right {
+      flex: 0 0 50%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .banner-right img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .banner-right .banner-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      background: linear-gradient(135deg, rgba(100, 180, 255, 0.1), rgba(160, 120, 255, 0.1));
+      transition: background var(--theme-transition);
     }
 
     /* 轮播指示器 */
@@ -281,6 +313,30 @@
 
     .banner-arrow.next {
       right: 1rem;
+    }
+
+    /* 响应式：小屏切换为上下布局 */
+    @media (max-width: 768px) {
+      .banner-slide {
+        flex-direction: column;
+      }
+      .banner-left {
+        flex: 0 0 auto;
+        padding: 2rem 1.5rem;
+        text-align: center;
+      }
+      .banner-left h2,
+      .banner-left .banner-desc {
+        text-align: center;
+      }
+      .banner-left .tag-list {
+        justify-content: center;
+      }
+      .banner-right {
+        flex: 0 0 auto;
+        width: 100%;
+        height: 40%;
+      }
     }
 
     /* ========== 主题切换按钮（导航栏内） ========== */
@@ -409,35 +465,56 @@
       <div class="banner-track" id="bannerTrack">
         <!-- Slide 1: 关于我 -->
         <div class="banner-slide">
-          <h2>关于我</h2>
-          <p class="banner-desc">我是Kylin，一个正在学习AI编程和UI设计的新手，喜欢用代码把想法变成现实。</p>
-          <div class="tag-list">
-            <span class="tag">UI设计</span>
-            <span class="tag">前端开发</span>
-            <span class="tag">Figma</span>
-            <span class="tag">VS Code</span>
+          <div class="banner-left">
+            <h2>关于我</h2>
+            <p class="banner-desc">我是Kylin，一个正在学习AI编程和UI设计的新手，喜欢用代码把想法变成现实。</p>
+            <div class="tag-list">
+              <span class="tag">UI设计</span>
+              <span class="tag">前端开发</span>
+              <span class="tag">Figma</span>
+              <span class="tag">VS Code</span>
+            </div>
+          </div>
+          <div class="banner-right">
+            <!-- 替换 src 为你的图片路径 -->
+            <img src="" alt="关于我" style="display:none" data-src="image 22.png">
+            <div class="banner-placeholder">🧑‍💻</div>
           </div>
         </div>
         <!-- Slide 2: 我的技能 -->
         <div class="banner-slide">
-          <h2>我的技能</h2>
-          <p class="banner-desc">专注网页设计与前端交互，擅长用 Figma 绘制高保真原型，再用代码将其落地为真实可用的页面。</p>
-          <div class="tag-list">
-            <span class="tag">HTML/CSS</span>
-            <span class="tag">JavaScript</span>
-            <span class="tag">响应式设计</span>
-            <span class="tag">动效交互</span>
+          <div class="banner-left">
+            <h2>我的技能</h2>
+            <p class="banner-desc">专注网页设计与前端交互，擅长用 Figma 绘制高保真原型，再用代码将其落地为真实可用的页面。</p>
+            <div class="tag-list">
+              <span class="tag">HTML/CSS</span>
+              <span class="tag">JavaScript</span>
+              <span class="tag">响应式设计</span>
+              <span class="tag">动效交互</span>
+            </div>
+          </div>
+          <div class="banner-right">
+            <!-- 替换 src 为你的图片路径 -->
+            <img src="" alt="我的技能" style="display:none" data-src="">
+            <div class="banner-placeholder">🎨</div>
           </div>
         </div>
         <!-- Slide 3: 我的目标 -->
         <div class="banner-slide">
-          <h2>我的目标</h2>
-          <p class="banner-desc">持续精进 AI 编程能力，打造兼具美感与实用性的数字产品，让每个想法都有机会被看见。</p>
-          <div class="tag-list">
-            <span class="tag">AI 编程</span>
-            <span class="tag">产品设计</span>
-            <span class="tag">持续学习</span>
-            <span class="tag">开源贡献</span>
+          <div class="banner-left">
+            <h2>我的目标</h2>
+            <p class="banner-desc">持续精进 AI 编程能力，打造兼具美感与实用性的数字产品，让每个想法都有机会被看见。</p>
+            <div class="tag-list">
+              <span class="tag">AI 编程</span>
+              <span class="tag">产品设计</span>
+              <span class="tag">持续学习</span>
+              <span class="tag">开源贡献</span>
+            </div>
+          </div>
+          <div class="banner-right">
+            <!-- 替换 src 为你的图片路径 -->
+            <img src="" alt="我的目标" style="display:none" data-src="">
+            <div class="banner-placeholder">🚀</div>
           </div>
         </div>
       </div>
@@ -702,6 +779,24 @@
 
       startAuto();
     })();
+
+    // ========== 加载 Banner 图片 ==========
+    // 自动加载有 data-src 的图片，隐藏占位符
+    document.querySelectorAll('.banner-slide').forEach(function (slide) {
+      var img = slide.querySelector('.banner-right img');
+      var placeholder = slide.querySelector('.banner-placeholder');
+      var src = img.getAttribute('data-src');
+      if (src) {
+        img.onload = function () {
+          img.style.display = 'block';
+          if (placeholder) placeholder.style.display = 'none';
+        };
+        img.onerror = function () {
+          // 图片加载失败，保持占位符显示
+        };
+        img.src = src;
+      }
+    });
   </script>
 </body>
 </html>

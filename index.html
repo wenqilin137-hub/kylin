@@ -61,14 +61,20 @@
       right: 0;
       z-index: 1000;
       height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
       background-color: var(--color-nav-bg);
       color: var(--color-nav-text);
       border-bottom: 1px solid var(--color-nav-border);
       transition: background-color var(--theme-transition), color var(--theme-transition), border-color var(--theme-transition);
+    }
+
+    .navbar-inner {
+      max-width: 1600px;
+      margin: 0 auto;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
     }
 
     /* 左侧：Logo 与网站标题同一行、垂直居中 */
@@ -170,43 +176,78 @@
     .banner-slide {
       min-width: 100%;
       height: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* 背景图片层 */
+    .banner-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      z-index: 1;
+    }
+
+    .banner-bg-placeholder {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 8rem;
+      z-index: 1;
+      background: linear-gradient(135deg, rgba(100, 180, 255, 0.15), rgba(160, 120, 255, 0.15));
+      transition: background var(--theme-transition);
+    }
+
+    /* 文案内容层（居中在背景图上） */
+    .banner-content {
+      position: relative;
+      z-index: 3;
+      max-width: 1600px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0 4rem;
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      transition: background var(--theme-transition), border-color var(--theme-transition);
     }
 
-    /* 左侧文案区 */
     .banner-left {
       flex: 0 0 45%;
-      padding: 3rem 4rem;
       display: flex;
       flex-direction: column;
       justify-content: center;
     }
 
     .banner-left h2 {
-      font-size: 2.2rem;
+      font-size: 2.8rem;
       font-family: sans-serif;
       font-weight: 700;
-      color: var(--color-text);
+      color: #fff;
       margin-bottom: 1rem;
-      transition: color var(--theme-transition);
       text-align: left;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
     }
 
     .banner-left .banner-desc {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-family: sans-serif;
-      color: var(--color-text);
-      opacity: 0.75;
+      color: rgba(255, 255, 255, 0.9);
       line-height: 1.7;
       margin-bottom: 1.5rem;
-      transition: color var(--theme-transition);
       text-align: left;
+      text-shadow: 0 1px 6px rgba(0, 0, 0, 0.3);
     }
 
     .banner-left .tag-list {
@@ -220,40 +261,12 @@
       padding: 0.35rem 0.9rem;
       font-size: 0.85rem;
       font-family: sans-serif;
-      background: var(--tag-bg);
-      color: var(--tag-text);
-      border: 1px solid var(--tag-border);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.25);
       border-radius: 20px;
-      transition: background var(--theme-transition), color var(--theme-transition), border-color var(--theme-transition);
-    }
-
-    /* 右侧图片区 */
-    .banner-right {
-      flex: 0 0 50%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .banner-right img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .banner-right .banner-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 8rem;
-      background: linear-gradient(135deg, rgba(100, 180, 255, 0.1), rgba(160, 120, 255, 0.1));
-      transition: background var(--theme-transition);
     }
 
     /* 轮播指示器 */
@@ -317,12 +330,12 @@
 
     /* 响应式：小屏切换为上下布局 */
     @media (max-width: 768px) {
-      .banner-slide {
+      .banner-content {
         flex-direction: column;
+        padding: 2rem 1.5rem;
       }
       .banner-left {
         flex: 0 0 auto;
-        padding: 2rem 1.5rem;
         text-align: center;
       }
       .banner-left h2,
@@ -331,11 +344,6 @@
       }
       .banner-left .tag-list {
         justify-content: center;
-      }
-      .banner-right {
-        flex: 0 0 auto;
-        width: 100%;
-        height: 40%;
       }
     }
 
@@ -423,37 +431,40 @@
 
   <!-- 固定在顶部的导航栏 -->
   <nav class="navbar">
-    <!-- 左侧：Logo + 网站标题 -->
-    <a class="navbar-brand" href="#">
-      <img class="navbar-logo" src="kylin头像 1 2.svg" alt="网站 Logo">
-      <span class="navbar-title">Kylin</span>
-    </a>
+    <div class="navbar-inner">
+      <!-- 左侧：Logo + 网站标题 -->
+      <a class="navbar-brand" href="#">
+        <img class="navbar-logo" src="kylin头像 1 2.svg" alt="网站 Logo">
+        <span class="navbar-title">Kylin</span>
+      </a>
 
-    <!-- 右侧：页面链接 + 深色/浅色切换 -->
-    <div class="navbar-nav">
-      <a class="nav-link" href="#">首页</a>
-      <a class="nav-link" href="#">个人简历</a>
-      <a class="nav-link" href="#">UI/UX作品</a>
+      <!-- 右侧：页面链接 + 深色/浅色切换 -->
+      <div class="navbar-nav">
+        <a class="nav-link" href="#">首页</a>
+        <a class="nav-link" href="#">简历</a>
+        <a class="nav-link" href="#">作品</a>
+        <a class="nav-link" href="#">联系方式</a>
 
-      <button class="toggle-btn" id="toggleBtn">
-        <span class="btn-state btn-state-light">
-          <span class="btn-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="12" cy="12" r="5"/>
-              <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
-            </svg>
+        <button class="toggle-btn" id="toggleBtn">
+          <span class="btn-state btn-state-light">
+            <span class="btn-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="5"/>
+                <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+              </svg>
+            </span>
+            浅色模式
           </span>
-          浅色模式
-        </span>
-        <span class="btn-state btn-state-dark">
-          <span class="btn-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3 7 7 0 1 0 21 14.5z"/>
-            </svg>
+          <span class="btn-state btn-state-dark">
+            <span class="btn-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 14.5A8.5 8.5 0 0 1 9.5 3 7 7 0 1 0 21 14.5z"/>
+              </svg>
+            </span>
+            深色模式
           </span>
-          深色模式
-        </span>
-      </button>
+        </button>
+      </div>
     </div>
   </nav>
 
@@ -465,56 +476,58 @@
       <div class="banner-track" id="bannerTrack">
         <!-- Slide 1: 关于我 -->
         <div class="banner-slide">
-          <div class="banner-left">
-            <h2>关于我</h2>
-            <p class="banner-desc">我是Kylin，一个正在学习AI编程和UI设计的新手，喜欢用代码把想法变成现实。</p>
-            <div class="tag-list">
-              <span class="tag">UI设计</span>
-              <span class="tag">前端开发</span>
-              <span class="tag">Figma</span>
-              <span class="tag">VS Code</span>
+          <img class="banner-bg" src="" alt="" data-src="Frame 2.png" style="display:none">
+          <div class="banner-bg-placeholder">🧑‍💻</div>
+          <div class="banner-content">
+            <div class="banner-left">
+              <h2>关于我</h2>
+              <p class="banner-desc">我是Kylin，一个新手正在学习AI编程的的UI设计，近期喜欢用代码把想法变成现实，在学习过程中探索，享受收获带来的快乐。</p>
+              <div class="tag-list">
+                <span class="tag">产品规划</span>
+                <span class="tag">UI设计</span>
+                <span class="tag">Figma</span>
+                <span class="tag">Cursor</span>
+                <span class="tag">Codex</span>
+                <span class="tag">VS Code</span>
+              </div>
             </div>
-          </div>
-          <div class="banner-right">
-            <!-- 替换 src 为你的图片路径 -->
-            <img src="" alt="关于我" style="display:none" data-src="image 22.png">
-            <div class="banner-placeholder">🧑‍💻</div>
+            <div style="flex:0 0 50%"></div>
           </div>
         </div>
         <!-- Slide 2: 我的技能 -->
         <div class="banner-slide">
-          <div class="banner-left">
-            <h2>我的技能</h2>
-            <p class="banner-desc">专注网页设计与前端交互，擅长用 Figma 绘制高保真原型，再用代码将其落地为真实可用的页面。</p>
-            <div class="tag-list">
-              <span class="tag">HTML/CSS</span>
-              <span class="tag">JavaScript</span>
-              <span class="tag">响应式设计</span>
-              <span class="tag">动效交互</span>
+          <img class="banner-bg" src="" alt="" data-src="Frame 1.png" style="display:none">
+          <div class="banner-bg-placeholder"></div>
+          <div class="banner-content">
+            <div class="banner-left">
+              <h2>我的技能</h2>
+              <p class="banner-desc">专注UI设计与前端交互，擅长用 Figma 绘制高保真原型，再用代码将其落地为真实可用的页面。</p>
+              <div class="tag-list">
+                <span class="tag">Figma</span>
+                <span class="tag">HTML/CSS</span>
+                <span class="tag">响应式设计</span>
+                <span class="tag">动效交互</span>
+              </div>
             </div>
-          </div>
-          <div class="banner-right">
-            <!-- 替换 src 为你的图片路径 -->
-            <img src="" alt="我的技能" style="display:none" data-src="">
-            <div class="banner-placeholder">🎨</div>
+            <div style="flex:0 0 50%"></div>
           </div>
         </div>
         <!-- Slide 3: 我的目标 -->
         <div class="banner-slide">
-          <div class="banner-left">
-            <h2>我的目标</h2>
-            <p class="banner-desc">持续精进 AI 编程能力，打造兼具美感与实用性的数字产品，让每个想法都有机会被看见。</p>
-            <div class="tag-list">
-              <span class="tag">AI 编程</span>
-              <span class="tag">产品设计</span>
-              <span class="tag">持续学习</span>
-              <span class="tag">开源贡献</span>
+          <img class="banner-bg" src="" alt="" data-src="Frame 3.png" style="display:none">
+          <div class="banner-bg-placeholder">🚀</div>
+          <div class="banner-content">
+            <div class="banner-left">
+              <h2>我的目标</h2>
+              <p class="banner-desc">深耕视觉美感，持续精进 AI 编程能力，打造兼具美感与实用性的数字产品，让每个想法都有机会被看见。</p>
+              <div class="tag-list">
+                <span class="tag">AI 编程</span>
+                <span class="tag">产品设计</span>
+                <span class="tag">持续学习</span>
+                <span class="tag">五边形战士</span>
+              </div>
             </div>
-          </div>
-          <div class="banner-right">
-            <!-- 替换 src 为你的图片路径 -->
-            <img src="" alt="我的目标" style="display:none" data-src="">
-            <div class="banner-placeholder">🚀</div>
+            <div style="flex:0 0 50%"></div>
           </div>
         </div>
       </div>
@@ -719,7 +732,7 @@
       body.classList.toggle('light-mode');
     });
 
-    // ========== Banner 轮播系统 ==========
+    // ========== Banner 无限循环轮播系统 ==========
     (function () {
       const track = document.getElementById('bannerTrack');
       const slides = document.querySelectorAll('.banner-slide');
@@ -729,16 +742,48 @@
       const total = slides.length;
       let current = 0;
       let autoTimer;
+      let isTransitioning = false;
 
-      function goTo(index) {
-        if (index < 0) index = total - 1;
-        if (index >= total) index = 0;
+      // 克隆首尾节点实现无限循环
+      const firstClone = slides[0].cloneNode(true);
+      const lastClone = slides[total - 1].cloneNode(true);
+      track.appendChild(firstClone);
+      track.insertBefore(lastClone, slides[0]);
+
+      // 更新 track 初始位置（显示第一张真实 slide）
+      track.style.transform = 'translateX(-100%)';
+
+      function goTo(index, instant) {
+        if (isTransitioning && !instant) return;
+        isTransitioning = !instant;
         current = index;
-        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        // 偏移 +1 因为前面插入了 lastClone
+        track.style.transition = instant ? 'none' : 'transform 0.7s cubic-bezier(0.4, 0, 0.2, 1)';
+        track.style.transform = 'translateX(-' + ((current + 1) * 100) + '%)';
+
         dots.forEach(function (d, i) {
           d.classList.toggle('active', i === current);
         });
       }
+
+      track.addEventListener('transitionend', function () {
+        isTransitioning = false;
+        // 到达克隆的最后一个（实际是 firstClone），无缝跳到第一个真实 slide
+        if (current >= total) {
+          current = 0;
+          track.style.transition = 'none';
+          track.style.transform = 'translateX(-' + ((current + 1) * 100) + '%)';
+        }
+        // 到达克隆的第一个（实际是 lastClone），无缝跳到最后一个真实 slide
+        if (current < 0) {
+          current = total - 1;
+          track.style.transition = 'none';
+          track.style.transform = 'translateX(-' + ((current + 1) * 100) + '%)';
+        }
+        dots.forEach(function (d, i) {
+          d.classList.toggle('active', i === current);
+        });
+      });
 
       function next() { goTo(current + 1); }
       function prev() { goTo(current - 1); }
@@ -780,11 +825,10 @@
       startAuto();
     })();
 
-    // ========== 加载 Banner 图片 ==========
-    // 自动加载有 data-src 的图片，隐藏占位符
+    // ========== 加载 Banner 背景图片 ==========
     document.querySelectorAll('.banner-slide').forEach(function (slide) {
-      var img = slide.querySelector('.banner-right img');
-      var placeholder = slide.querySelector('.banner-placeholder');
+      var img = slide.querySelector('.banner-bg');
+      var placeholder = slide.querySelector('.banner-bg-placeholder');
       var src = img.getAttribute('data-src');
       if (src) {
         img.onload = function () {
